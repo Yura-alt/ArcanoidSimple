@@ -10,7 +10,6 @@ namespace ArcanoidSimple
 {
     abstract class Barrier: ObjShape
     {
-       // public static double widht;
 
         public static double Height
         {

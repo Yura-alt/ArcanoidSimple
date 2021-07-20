@@ -41,7 +41,7 @@ namespace ArcanoidSimple
             Canvas.SetTop(rectangle, basePoint.Y);
 
             
-            MapSpace.Children.Insert(2, rectangle);
+            MapSpace.Children.Insert(1, rectangle);
         }
     }
 }

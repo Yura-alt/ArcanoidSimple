@@ -10,6 +10,8 @@ namespace ArcanoidSimple
     abstract class ICollisionTest
     {
         abstract public Extents GetExtents();
+
+       
          
     }
 }

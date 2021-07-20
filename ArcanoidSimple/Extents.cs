@@ -22,12 +22,19 @@ namespace ArcanoidSimple
             this.ptMax = ptMax;
         }
         public bool IsIntersect( Extents other)
-        {
-            if (other.ptMin.X < ptMax.X && other.ptMax.X > ptMin.X & other.ptMin.Y < ptMax.Y & other.ptMax.Y > ptMin.Y)
+        {     
+            if ((other.ptMin.X < ptMax.X || other.ptMin.X <= ptMin.X) & other.ptMax.X > ptMin.X & (other.ptMin.Y < ptMax.Y || other.ptMin.Y < ptMin.Y) & other.ptMax.Y > ptMin.Y)
             {
-                return true;
-            }  
-            return false;
+                
+                    return true;
+                
+            }
+            else
+            {
+                return false;
+            }
+            
+
         }
         
     }

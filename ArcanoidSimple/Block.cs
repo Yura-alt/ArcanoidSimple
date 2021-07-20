@@ -12,6 +12,7 @@ namespace ArcanoidSimple
 {
     class Block : Barrier
     {
+        private Extents extents = new Extents();
         public Block()
         {
            
@@ -49,7 +50,10 @@ namespace ArcanoidSimple
         }
         public override Extents GetExtents()
         {
-            return new Extents(basePoint, new Point(basePoint.X + Widht, basePoint.Y + Height));
+            extents.ptMin = basePoint;
+            extents.ptMax.X = basePoint.X + Widht;
+            extents.ptMax.Y = basePoint.Y + Height;
+            return extents;
         }
     }
 }

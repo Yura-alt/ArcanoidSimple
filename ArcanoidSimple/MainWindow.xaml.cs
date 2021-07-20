@@ -29,7 +29,6 @@ namespace ArcanoidSimple
             
             gameEndgine.Init(ref MapSpace);
             gameEndgine.Draw();
-
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)

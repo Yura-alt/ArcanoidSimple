@@ -31,12 +31,13 @@ namespace ArcanoidSimple
         {
             foreach (var item in shapes)
                 item.Draw(ref mapSpace);
-        }
+            ball.Draw(ref mapSpace);
+        } 
         public void Left()
         {
             if (platform.basePoint.X > 3)
             {
-                mapSpace.Children.RemoveAt(2);
+                mapSpace.Children.RemoveAt(1);
                 platform.basePoint.X -= 5;
                 platform.Draw(ref mapSpace);
             }
@@ -45,46 +46,41 @@ namespace ArcanoidSimple
         {
             if ((platform.basePoint.X + 100) < 432)
             {
-                mapSpace.Children.RemoveAt(2);
+                mapSpace.Children.RemoveAt(1);
                 platform.basePoint.X += 5;
                 platform.Draw(ref mapSpace);
             }
         }
-        public void MirrorBall()
-        {
-            if (ball.speedX>0 & ball.speedY>0)
-                ball.speedY = -ball.speedY;
-            else if (ball.speedX>0 & ball.speedY<0)
-                ball.speedX = -ball.speedX;
-            else if (ball.speedX < 0 & ball.speedY < 0)
-                ball.speedY = -ball.speedY;
-            else if (ball.speedX < 0 & ball.speedY > 0)
-                ball.speedX = -ball.speedX;
-        }
+        
         public void CheckCollision()
         {
             var extball = ball.GetExtents();
-            if (!extball.IsIntersect(shapes[0].GetExtents()))
+            for (int i = 0; i < shapes.Count(); i++)
             {
-                MirrorBall();
-            }
+                if (i == 0)
+                {
+                    if (!extball.IsIntersect(shapes[i].GetExtents()))
+                    {
+                        ball.MirrorBall(i);
+                        break;
+                    }
+                        
+                }
 
-            for (int i = 2; i < shapes.Count(); i++)
-            {
-                
                 if (extball.IsIntersect(shapes[i].GetExtents()))
                 {
-                    if (i==2)
+                    if (i==1)
                     {
-                       MirrorBall();
+                        ball.MirrorBall(i);
+                        break;
                     }
-                    else
+                    if (i>1)
                     {
+                        ball.MirrorBall(i, ref shapes);
                         RemoveBlock(i);
-                        MirrorBall();
+                        break;
                     }    
-                }
-                
+                }   
             }
         }
 
@@ -92,56 +88,43 @@ namespace ArcanoidSimple
         {
             shapes.RemoveAt(index);
             mapSpace.Children.RemoveAt(index);
-
         }
 
         public void KeyDown(System.Windows.Input.Key e)
         {
             if (e == Key.Left)
-            {
                 Left();
-            }
             if (e == Key.Right)
-            {
                 Right();
-            }
             if (e == Key.Space)
-            {
-                statusGame = true;
                 timerBall.Start();
-            }
         }
 
           private void TimerBall_Tick(object sender, EventArgs e)
         {
-            ball.basePoint.X += ball.speedX;
-            ball.basePoint.Y += ball.speedY;
-
+            DrawFrame();
+        }
+        private void DrawFrame()
+        {
             CheckCollision();
-           
-
             ball.Move(ref mapSpace);
-
             
         }
             public void Init(ref Canvas mapSpace)
         {
 
-          this.mapSpace = mapSpace;
+            this.mapSpace = mapSpace;
             timerBall.Tick += new EventHandler(TimerBall_Tick);
-            timerBall.Interval = new TimeSpan(0, 0, 0, 0, 5);
-            
-
+            timerBall.Interval = new TimeSpan(0, 0, 0, 0, 15);
             shapes.Add(gameBackground);
-            //shapes.Add(ball);
             shapes.Add(platform);
-
 
             for (int i = 1; i < 5; i++)
             {
                 for (int j = 1; j < 11; j++)
                 {
-                    Block block = new Block(2 * j + Barrier.Widht * (j - 1), Barrier.Height * (i - 1) + 10 * i);
+                   Block block = new Block(2 * j + Barrier.Widht * (j - 1), Barrier.Height * (i - 1) + 10 * i);
+                    //Block block = new Block( Barrier.Widht-10, Barrier.Height);
                     shapes.Add(block);
                 }
 

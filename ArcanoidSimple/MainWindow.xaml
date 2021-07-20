@@ -3,11 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Name="MainWin" Height="550" Width="450"  KeyDown="Window_KeyDown" KeyUp="Window_KeyUp" Loaded="MainWin_Loaded" ResizeMode="NoResize">
 
-    <Grid Name="GridBackground">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="209*"/>
-            <ColumnDefinition Width="164*"/>
-        </Grid.ColumnDefinitions>
+    <Grid Name="GridBackground" Height="550" Width="450">
+       
         <Canvas Name="MapSpace" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top">
 
         </Canvas>

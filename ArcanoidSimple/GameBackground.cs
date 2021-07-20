@@ -14,6 +14,7 @@ namespace ArcanoidSimple
     {
         public double height;
         public double width;
+        private Extents extents = new Extents();
         public override void Draw(ref Canvas MapSpace)
         {
             Rectangle rectangle = new Rectangle
@@ -31,8 +32,13 @@ namespace ArcanoidSimple
             height = 550;
         }
         public override Extents GetExtents()
-        {
-            return new Extents(basePoint, new Point(basePoint.X + width-25, basePoint.Y + height-45));
+          {
+            extents.ptMin.X = 15;
+            extents.ptMin.Y = 15;
+            extents.ptMax.X =  width-25;
+            extents.ptMax.Y =  height-45;
+
+            return extents;
         }
     }
 }
